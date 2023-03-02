@@ -16,7 +16,9 @@
           "Microsoft.EntityFrameworkCore.Tools": "7.0.3",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "7.0.4",
           "Refit": "6.3.2",
-          "Swashbuckle.AspNetCore": "6.4.0"
+          "Swashbuckle.AspNetCore": "6.4.0",
+          "Core.Reference": "1.0.0.0",
+          "Infrastructure.Reference": "1.0.0.0"
         },
         "runtime": {
           "Final_Project.dll": {}
@@ -2561,25 +2563,20 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "Core/1.0.0": {
-        "dependencies": {
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "7.0.3"
-        },
+      "Core.Reference/1.0.0.0": {
         "runtime": {
-          "Core.dll": {}
+          "Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
-      "Infrastructure/1.0.0": {
-        "dependencies": {
-          "Core": "1.0.0",
-          "Microsoft.AspNetCore.Identity": "2.2.0",
-          "Microsoft.EntityFrameworkCore": "7.0.3",
-          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.3",
-          "Microsoft.IdentityModel.Tokens": "6.27.0",
-          "System.IdentityModel.Tokens.Jwt": "6.27.0"
-        },
+      "Infrastructure.Reference/1.0.0.0": {
         "runtime": {
-          "Infrastructure.dll": {}
+          "Infrastructure.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
@@ -4095,13 +4092,13 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
-    "Core/1.0.0": {
-      "type": "project",
+    "Core.Reference/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },
-    "Infrastructure/1.0.0": {
-      "type": "project",
+    "Infrastructure.Reference/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

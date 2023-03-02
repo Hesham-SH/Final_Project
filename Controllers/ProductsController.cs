@@ -182,32 +182,42 @@ namespace Final_Project.Controllers
             return Ok();
         }
 
+        [HttpGet("GetTopSellingProdcut")]
+        public async Task<ActionResult<List<ProductDTO>>> GetTopSellingProdcut()
+        {
+            var result = await _repository.GetBestSellerAsync();
+            if(result != null)
+            {
+                return Ok(result);
+            }
+            return NotFound();
+        }
 
 
 
 
 
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<ShoppingOrder>> GetOrders(int id)
-        //{
-        //    var shoppingOrders = await _context.ShoppingOrderProducts.Include(S => S.Product).Include(S => S.ShoppingOrder).Where(S => S.ShoppingOrder.UserId == id).GroupBy(S => S.ShoppingOrder.OrderName).ToListAsync();
-        //    List<ShoppingOrderProductDTO> orderProductDTOs = new List<ShoppingOrderProductDTO>();
-        //    foreach(var item in shoppingOrders)
-        //    {
+        [HttpGet("GetUserReviews{id}")]
+        public async Task<ActionResult<ShoppingOrder>> GetOrders(string id)
+        {
+            var shoppingOrders = await _context.ShoppingOrderProducts.Include(S => S.Product).Include(S => S.ShoppingOrder).Where(S => S.ShoppingOrder.UserId == id).GroupBy(S => S.ShoppingOrder.OrderName).ToListAsync();
+            List<ShoppingOrderProductDTO> orderProductDTOs = new List<ShoppingOrderProductDTO>();
+            foreach (var item in shoppingOrders)
+            {
 
-        //        ShoppingOrderProductDTO orderProductDTO = new ShoppingOrderProductDTO
-        //        {
-        //            OrderName = item.Key,
-        //            Products = new List<string>()
-        //        };
-        //        foreach (var x in item)
-        //        {
-        //            orderProductDTO.Products.Add(x.Product.Name);
-        //        };
-        //        orderProductDTOs.Add(orderProductDTO);
-        //    }
-        //    return Ok(orderProductDTOs);
-        //}
+                ShoppingOrderProductDTO orderProductDTO = new ShoppingOrderProductDTO
+                {
+                    OrderName = item.Key,
+                    Products = new List<string>()
+                };
+                foreach (var x in item)
+                {
+                    orderProductDTO.Products.Add(x.Product.Name);
+                };
+                orderProductDTOs.Add(orderProductDTO);
+            }
+            return Ok(orderProductDTOs);
+        }
     }
 }

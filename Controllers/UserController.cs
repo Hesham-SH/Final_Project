@@ -24,11 +24,13 @@ namespace Final_Project.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly SiteContext _context;
 
-        public UserController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public UserController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, SiteContext siteContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = siteContext;
         }
 
         [HttpGet("GetUsers")]
@@ -89,7 +91,7 @@ namespace Final_Project.Controllers
                 return Unauthorized(new ApiResponseType().StatusCode = 401);
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("my_secret_key_123456"));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512);
 
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.Name, user.UserName));
@@ -148,6 +150,27 @@ namespace Final_Project.Controllers
             return Ok(userDTO);
         }
 
+        [HttpGet("TopActiveUser")]
+        public async Task<IReadOnlyList<TopUsersDTO>> GetMostActiveUserAsync()
+        {
+            List<TopUsersDTO> topUsersDTOs = new List<TopUsersDTO>();
+            var orderDetails = await _context.ShoppingOrders.GroupBy(SO => SO.UserId).ToListAsync();
+            foreach (var item in orderDetails)
+            {
+                int count = 0;
+                foreach (var x in item)
+                {
+                    count += 1;
+                }
+                TopUsersDTO topUsersDTO = new TopUsersDTO()
+                {
+                    Id = item.Key,
+                    OrderCount = count
+                };
+                topUsersDTOs.Add(topUsersDTO);
+            }
+            return topUsersDTOs;
+        }
 
         //[HttpGet("{id}")]
         //public async Task<ActionResult<ShoppingOrder>> GetOrders(int id)

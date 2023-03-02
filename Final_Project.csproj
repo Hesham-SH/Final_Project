@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -25,6 +25,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Core">
+      <HintPath>..\Core\obj\Debug\net7.0\Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Infrastructure">
+      <HintPath>..\Infrastructure\bin\Debug\net7.0\Infrastructure.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
